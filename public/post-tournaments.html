@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
+        integrity="sha384-7qAoOXltbVP82dhxHAUje59V5r2YsVfBafyUDxEdApLPmcdhBPg1DKg1ERo0BZlK"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+    <style>
+        body{
+            
+          background: linear-gradient(135deg, #f0f4f8, #d9e4f5);
+        }
+    
+
+        .form-control {
+            border: 1px solid black;
+            border-radius: 2px;
+        }
+
+        form input.form-control,
+        form select.form-select,
+        form textarea.form-control {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        form input.form-control:focus,
+        form select.form-select:focus,
+        form textarea.form-control:focus {
+            border-color: #5b86e5;
+            box-shadow: 0 0 6px rgba(91, 134, 229, 0.4);
+            background-color: #fff;
+            color: #111;
+            outline: none;
+        }
+
+        form label {
+            color: black;
+            font-weight: 500;
+        }
+    </style>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#emailid").blur(function () {
+                let email = $(this).val().trim();
+                let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+                if (email === "") {
+                    alert("fill Email Id");
+
+                }
+                else if (regex.test(email) == false) {
+                    alert("Invalid Email Id");
+
+                }
+            })
+
+            $("#pub_evnt").click(function () {
+                let obj = {
+                    type: "post",
+                    url: "/Post_event",
+                    data: {
+                        emailid: $("#emailid").val(),
+                        eventname: $("#eventname").val(),
+                        date: $("#date").val(),
+                        Address: $("#Address").val(),
+                        time: $("#time").val(),
+                        inputState: $("#inputState").val(),
+                        Category: $("#Category").val(),
+                        minage: $("#minage").val(),
+                        contact: $("#contact").val(),
+                        maxage: $("#maxage").val(),
+                        lastDate: $("#lastDate").val(),
+                        fee: $("#fee").val(),
+                        pMny: $("#pMny").val(),
+                        otherinfo: $("#otherinfo").val(),
+
+
+                    }
+                }
+                $.ajax(obj).then(function (response) {
+                    alert(response);
+                }).fail(function (err) {
+                    alert(err);
+                })
+            })
+        })
+    </script>
+    <script>
+        function showUser() {
+            let activeUser = localStorage.getItem("activeUser");
+            document.getElementById("emailid").value = activeUser;
+        }
+    </script>
+
+</head>
+
+<body onload=showUser()>
+
+    <div class="container mx-auto" style="width: 70%;">
+
+        <form class="row g-3 m-2 p-3 needs-validation border-top-0 rounded-bottom shadow-sm"
+            enctype="multipart/form-data" style=" background-color: #ffffff;
+            color: black;
+            border-radius: 12px; ">
+
+            <div class="col-12 text-center mb-3">
+                <h4 style="
+                font-weight: 600;
+                letter-spacing: 0.8px;
+                margin-bottom: 0;">
+                    Tournament Details
+                </h4>
+                <hr style="width: 50px; border-top: 2px solid black; margin: 8px auto 0;">
+            </div>
+
+            <input type="hidden" id="hdn" name="hdn">
+
+            <div class=" col-md-12 md-3">
+                <label for="inputEmail4" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="emailid" name="emailid" required>
+
+            </div>
+           
+            <br>
+            <div class=" col-8 md-3">
+                <label class="form-label">Event Name:</label>
+                <input type="text" class="form-control" id="eventname" name="eventname" required>
+
+            </div>
+            <br>
+            <div class=" col-4 md-3">
+                <label class="form-label">Date:</label>
+                <input type="date" class="form-control" id="date" name="date" required>
+
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Time:</label>
+                <input type="time" class="form-control" id="time" name="time" placeholder="" required>
+
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Venue/Address:</label>
+                <input type="text" class="form-control" id="Address" name="Address" required>
+
+            </div>
+            <div class="col-md-4">
+                <label for="inputState" class="form-label">State:</label>
+                <select id="inputState" class="form-select">
+                    <option selected>Choose...</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+
+
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="inputState" class="form-label">Sports Category:</label>
+                <select id="Category" class="form-select">
+                    <option selected>Choose...</option>
+                    <option value="Archery">Archery</option>
+                    <option value="Athletics">Athletics</option>
+                    <option value="Badminton">Badminton</option>
+                    <option value="Baseball">Baseball</option>
+                    <option value="Basketball">Basketball</option>
+                    <option value="Boxing">Boxing</option>
+                    <option value="Carrom">Carrom</option>
+                    <option value="Chess">Chess</option>
+                    <option value="Cricket">Cricket</option>
+                    <option value="Cycling">Cycling</option>
+                    <option value="Football">Football</option>
+                    <option value="Golf">Golf</option>
+                    <option value="Gymnastics">Gymnastics</option>
+                    <option value="Handball">Handball</option>
+                    <option value="Hockey">Hockey</option>
+                    <option value="Judo">Judo</option>
+                    <option value="Kabaddi">Kabaddi</option>
+                    <option value="Kho Kho">Kho Kho</option>
+                    <option value="Lawn Tennis">Lawn Tennis</option>
+                    <option value="Martial Arts">Martial Arts</option>
+                    <option value="Shooting">Shooting</option>
+                    <option value="Skating">Skating</option>
+                    <option value="Squash">Squash</option>
+                    <option value="Swimming">Swimming</option>
+                    <option value="Table Tennis">Table Tennis</option>
+                    <option value="Taekwondo">Taekwondo</option>
+                    <option value="Volleyball">Volleyball</option>
+                    <option value="Weightlifting">Weightlifting</option>
+                    <option value="Wrestling">Wrestling</option>
+
+
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Min Age:</label>
+                <input type="number" class="form-control" id="minage">
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Max Age:</label>
+                <input type="number" class="form-control" id="maxage">
+            </div>
+
+
+            <div class="col-md-6">
+                <label class="form-label">Last Date of Registration:</label>
+                <input type="date" class="form-control" id="lastDate" name="lastDate" placeholder="" required>
+
+            </div>
+
+
+
+
+            <div class=" col-6 md-3 p-1">
+                <label class="form-label">Contact No.</label>
+                <input type="number" class="form-control" id="contact" name="contact" required>
+
+            </div>
+
+            <div class=" col-8 md-3">
+                <label class="form-label">Fee:</label>
+                <input type="text" class="form-control" id="fee" name="fee" required>
+
+            </div>
+
+            <div class=" col-8 md-3">
+                <label class="form-label">Prize Money:</label>
+                <input type="text" class="form-control" id="pMny" name="pMny" required>
+
+            </div>
+
+
+            <!-- pic----------------------------------------------------- -->
+
+
+            <!-- -------------------------------------------------------- -->
+
+            <div class="row p-1">
+                <div class="col-md-12">
+                    <label for="otherinfo" class="form-label">Other Info:</label>
+                    <textarea class="form-control" id="otherinfo" rows="6" name="otherinfo"></textarea>
+                </div>
+            </div>
+
+
+            <div class="col-12">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                    <label class="form-check-label" for="gridCheck">
+                        Check me out
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <button type="button" class="btn btn-dark" id="pub_evnt" name="pub_evnt">Publish Event</button>
+
+            </div>
+
+        </form>
+    </div>
+
+</body>
+
+</html>
