@@ -58,7 +58,7 @@ app.get("/server-signup", function (req, resp) {
         mySqlVen.query("insert into users2025 values(?,?,?,1,current_date())", [txtEmail, txtPwd, comboUser], function (errKuch) {
 
             if (errKuch == null)
-                resp.send("recorded successfully");
+                resp.send(comboUser);
             else
                 console.log(errKuch.message);
             })

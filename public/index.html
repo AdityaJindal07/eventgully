@@ -57,8 +57,17 @@
 
 
                 $.ajax(obj).then(function (response) {
-                    alert(response);
-                    // $("#errEmail").html(response)
+                    // alert(response);
+                    if (response == "Player") {
+                        localStorage.setItem("activeUser", $("#txtEmail").val());
+                        location.href = "dash_player.html";
+                    }
+                    else if (response == "Organiser") {
+                        localStorage.setItem("activeUser", $("#txtEmail").val());
+                        location.href = "dash_organisation.html";
+                        // $("#errEmail").html(response)
+                    }
+                
                 }).fail(function (err) {
                     alert(err);
                 })
@@ -203,12 +212,12 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-             background: linear-gradient(135deg, #f0f4f8, #d9e4f5);
+            background: linear-gradient(135deg, #f0f4f8, #d9e4f5);
             color: #212529;
 
         }
 
-               .card {
+        .card {
             transition: transform 0.2s ease-in-out;
         }
 
@@ -520,30 +529,35 @@
 
     <!-- ================================================================================ -->
     <!-- our mission==================================================================== -->
-<div class="container rounded-4 mt-5 p-4" id="Mission"
-     style="background: linear-gradient(to bottom right, #e0fdfa, rgb(34, 226, 255)); max-width: 80%;">
-  <h2 class="text-center mb-4">Our Mission</h2>
+    <div class="container rounded-4 mt-5 p-4" id="Mission"
+        style="background: linear-gradient(to bottom right, #e0fdfa, rgb(34, 226, 255)); max-width: 80%;">
+        <h2 class="text-center mb-4">Our Mission</h2>
 
-  <div class="row align-items-center">
-    <!-- Left side: Icon/Image -->
-    <div class="col-md-5 text-center mb-3 mb-md-0">
-      <img src="pics/mission.jpg" alt="" style="border-radius: 40px; width: 70%;height: 90%;">
-    </div>
+        <div class="row align-items-center">
+            <!-- Left side: Icon/Image -->
+            <div class="col-md-5 text-center mb-3 mb-md-0">
+                <img src="pics/mission.jpg" alt="" style="border-radius: 40px; width: 70%;height: 90%;">
+            </div>
 
-    <!-- Right side: Text -->
-    <div class="col-md-7 fs-5">
-      <p class="text-dark">
-        At <strong>EventGully</strong>, our mission is to revolutionize the way sports tournaments are organized, experienced, and remembered. We believe sports bring people together, ignite passion, and drive excellence.
-      </p>
-      <p class="text-dark">
-        We empower organizers with tools to manage registrations, schedules, teams, and results effortlessly—eliminating complexity and enhancing transparency.
-      </p>
-      <p class="text-dark">
-        Whether it's a school event or a national championship, we streamline communication, boost participation, and promote fair play—creating a smarter, faster, and more engaging experience for all.
-      </p>
+            <!-- Right side: Text -->
+            <div class="col-md-7 fs-5">
+                <p class="text-dark">
+                    At <strong>EventGully</strong>, our mission is to revolutionize the way sports tournaments are
+                    organized, experienced, and remembered. We believe sports bring people together, ignite passion, and
+                    drive excellence.
+                </p>
+                <p class="text-dark">
+                    We empower organizers with tools to manage registrations, schedules, teams, and results
+                    effortlessly—eliminating complexity and enhancing transparency.
+                </p>
+                <p class="text-dark">
+                    Whether it's a school event or a national championship, we streamline communication, boost
+                    participation, and promote fair play—creating a smarter, faster, and more engaging experience for
+                    all.
+                </p>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
 
 
@@ -559,21 +573,21 @@
 
             <div class="bg-light shadow-lg p-3 col-12 col-sm-6 col-md-5 text-center rounded-4 mt-2">
                 <h5 class="fw-bold">Under the Guidance Of:</h5><br>
-               <img src="pics/banglorie_sir.jpg" alt="" style="width: 200px; height: 200px; border-radius: 100%;">
-                
+                <img src="pics/banglorie_sir.jpg" alt="" style="width: 200px; height: 200px; border-radius: 100%;">
+
                 <h4 class="fw-bold text-dark">Rajesh K. Bansal</h4>
                 <p class="text-muted mb-1">(SCJP - Sun Certified Java Programmer)</p>
-                
+
             </div>
 
             <div class="bg-light shadow-lg  p-3 col-12 col-sm-6 col-md-5 text-center rounded-4 mt-2">
-                 <h5 class="fw-bold">Developer:</h5>
-               <img src="pics/me.jpg" alt="" style="width: 170px; height: 200px; border-radius: 20px;">
-               
+                <h5 class="fw-bold">Developer:</h5>
+                <img src="pics/me.jpg" alt="" style="width: 170px; height: 200px; border-radius: 20px;">
+
                 <h4 class="fw-bold text-dark">Aditya Jindal</h4>
                 <p class="mb-1"><strong>The LNM Institute of Information Technology</strong></p>
                 <p class="text-muted">Jaipur, Rajasthan</p>
-                
+
             </div>
         </div>
     </div>
