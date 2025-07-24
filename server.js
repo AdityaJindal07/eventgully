@@ -3,9 +3,11 @@ var app = express();
 var port = 2400;
 var fileuploader = require("express-fileupload");
 var cloudinary = require("cloudinary").v2;
+require('dotenv').config();
+const apiKey = process.env.API_KEY_GEM
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const genAI = new GoogleGenerativeAI("AIzaSyDgCOT16G96aWj1_j1RCHsebE6ZaVyVHBc");
+const genAI = new GoogleGenerativeAI(apiKey);
 const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
 
