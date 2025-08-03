@@ -1,40 +1,34 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>EventGully - Tournament Management</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
         crossorigin="anonymous"></script>
-
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
         integrity="sha384-7qAoOXltbVP82dhxHAUje59V5r2YsVfBafyUDxEdApLPmcdhBPg1DKg1ERo0BZlK"
         crossorigin="anonymous"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
-
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@700&display=swap"
+        rel="stylesheet">
     <script>
         $(document).ready(function () {
-
             $("#btn").click(function () {
                 var pass_validity = null;
-
                 var val = $("#txtPwd").val();
                 if (val.length < 8 || !/[a-z]/.test(val) || !/[A-Z]/.test(val) || !/\d/.test(val) || !/[^A-Za-z0-9]/.test(val)) {
-
                     pass_validity = "weak";
-
                 }
                 let data = {
                     id: $("#txtEmail").val(),
@@ -44,79 +38,47 @@
                 if (pass_validity == "weak") {
                     data.pass_validity = "weak";
                 }
-
                 let obj = {
                     type: "get",
                     url: "/server-signup",
                     data: data
                 }
-
-
-
-
-
-
                 $.ajax(obj).then(function (response) {
-                    // alert(response);
-                    if (response == "Player") {
-                        localStorage.setItem("activeUser", $("#txtEmail").val());
-                        location.href = "dash_player.html";
-                    }
-                    else if (response == "Organiser") {
-                        localStorage.setItem("activeUser", $("#txtEmail").val());
-                        location.href = "dash_organisation.html";
-                        // $("#errEmail").html(response)
-                    }
-                
+                    alert(response);
                 }).fail(function (err) {
                     alert(err);
                 })
-
-            });
-
+            })
 
             $("#btn2").click(function () {
-
                 let obj = {
                     type: "get",
                     url: "/do_login",
                     data: {
                         txtEmail2: $("#txtEmail2").val(),
                         txtPwd2: $("#txtPwd2").val(),
-
-
                     }
                 }
                 $.ajax(obj).then(function (response) {
                     if (response == "Blocked") {
                         alert("Sorry! your id is Blocked");
-                    }
-                    else if (response == "Invalid") {
+                    } else if (response == "Invalid") {
                         alert("Invalid Email id or password");
-                    }
-                    else if (response == "Player") {
+                    } else if (response == "Player") {
                         localStorage.setItem("activeUser", $("#txtEmail2").val());
                         location.href = "dash_player.html";
-                    }
-                    else if (response == "Organiser") {
+                    } else if (response == "Organiser") {
                         localStorage.setItem("activeUser", $("#txtEmail2").val());
                         location.href = "dash_organisation.html";
-                    }
-                    else if (response == "Admin") {
+                    } else if (response == "Admin") {
                         localStorage.setItem("activeUser", $("#txtEmail2").val());
                         location.href = "dash_Admin.html";
                     }
-
-                    // $("#errEmail").html(response)
                 }).fail(function (err) {
                     alert(err);
                 })
-
             })
 
-
-
-            // alert();
             var password = $("#txtPwd");
             var password2 = $("#txtPwd2")
 
@@ -124,8 +86,7 @@
                 if (password.prop("type") == "password") {
                     $(this).removeClass("fa-eye").addClass("fa-eye-slash");
                     password.attr("type", "text");
-                }
-                else {
+                } else {
                     $(this).removeClass("fa-eye-slash").addClass("fa-eye");
                     $("#txtPwd").attr("type", "password");
                 }
@@ -134,8 +95,7 @@
                 if (password2.prop("type") == "password") {
                     $(this).removeClass("fa-eye").addClass("fa-eye-slash");
                     password2.attr("type", "text");
-                }
-                else {
+                } else {
                     $(this).removeClass("fa-eye-slash").addClass("fa-eye");
                     $("#txtPwd2").attr("type", "password");
                 }
@@ -146,15 +106,10 @@
                 let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
                 if (email === "") {
                     alert("fill Email Id");
-
-                }
-                else if (regex.test(email) == false) {
+                } else if (regex.test(email) == false) {
                     alert("Invalid Email Id");
-
                 }
             });
-
-
 
             password.keyup(function () {
                 var val = $(this).val();
@@ -184,373 +139,474 @@
                     $("#osc").addClass("ok").removeClass("not-ok");
                 }
             });
-
         });
-
-
-
-        //     $("#btn").click(function () 
-        //     {       let obj = {
-        //             type: "get",
-        //             URL: "/server-signup",
-        //             data: {
-        //                 id: $("#txtEmail").val(),
-        //                 txtPwd: $("#txtPwd").val(),
-        //                 txtUser: $("#comboUser").val(),
-        //             }
-        //         }
-        //         $.ajax(obj).then(function (response)
-        //          {
-        //             alert(JSON.stringify(response));
-        //         }).fail(function (err) {
-        //             alert(err.message);
-        //         })
-        //     })
-
     </script>
-
     <style>
+        /* CSS Variables for easy theme changes */
+        :root {
+            --primary-light: #f0f2f5;
+            --secondary-light: #ffffff;
+            --highlight-color: #7B1FA2;
+            --secondary-highlight: #E91E63;
+            --text-dark: #333;
+            --text-light: #ffffff;
+        }
+
+        /* General Body and Typography */
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f0f4f8, #d9e4f5);
-            color: #212529;
-
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--primary-light), #e3e6e9);
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0;
         }
 
-        .card {
-            transition: transform 0.2s ease-in-out;
+        /* Navbar Styling */
+        .navbar {
+            background-color: var(--secondary-light) !important;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .card:hover {
-            transform: scale(1.05);
+        .navbar-brand img {
+            border-radius: 50%;
+            transition: transform 0.4s ease-in-out;
+            border: 2px solid var(--highlight-color);
         }
 
-        .nav-item {
-            transition: ease all 0.3s;
+        .navbar-brand img:hover {
+            transform: rotate(360deg) scale(1.1);
         }
 
+        .navbar-toggler {
+            border-color: var(--highlight-color);
+            background-color: var(--highlight-color);
+            transition: background-color 0.3s;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgb(255, 255, 255)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--text-dark) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background-color: var(--highlight-color);
+            color: var(--text-light) !important;
+            transform: translateY(-2px);
+        }
+
+        /* Custom Button Style */
         .btn-dark {
-            background-color: #004d4d;
-            color: white;
+            background: linear-gradient(45deg, var(--highlight-color), var(--secondary-highlight));
             border: none;
-            border-radius: 6px;
-            transition: background-color 0.3s ease;
+            color: var(--text-light);
+            font-weight: bold;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
         }
 
         .btn-dark:hover {
-            background-color: #006666;
-            color: white;
+            background: linear-gradient(45deg, var(--secondary-highlight), var(--highlight-color));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(123, 31, 162, 0.4);
+            color: var(--text-light);
         }
 
-        .nav-item:hover {
-            background-color: #008080;
-            /* Teal */
-            color: white !important;
-            border-radius: 6px;
-            transition: ease all 0.3s;
-        }
-
-
-        a {
-            text-decoration: none;
-            color: black;
-        }
-
-        #pass {
+        /* Hero Section */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            text-align: center;
+            background: url('pics/background9.jpg') no-repeat center center/cover;
+            background-attachment: fixed;
+            color: var(--text-dark);
+            padding: 2rem;
             position: relative;
         }
 
-        #eye {
+        .hero-section::before {
+            content: '';
             position: absolute;
-            right: 20px;
-            top: 65%;
-            transform: translateY(-50%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.6);
+            z-index: 1;
         }
 
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .hero-section h1 .highlight {
+            background: -webkit-linear-gradient(45deg, var(--highlight-color), var(--secondary-highlight));
+            /* -webkit-background-clip: text; */
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+
+        .hero-section h3,
+        .hero-section h5 {
+            max-width: 800px;
+            margin-top: 1rem;
+            color: rgba(51, 51, 51, 0.8);
+            font-weight: 400;
+            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Section Containers */
+        .section-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 3rem;
+            background-color: var(--secondary-light);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--highlight-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Card Styling */
+        .card {
+            border: none;
+            border-radius: 15px;
+            background-color: #f8f9fa;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease-in-out, box-shadow 0.4s;
+            color: var(--text-dark);
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(123, 31, 162, 0.3);
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .card-body h5 {
+            font-weight: 600;
+            color: var(--highlight-color);
+            margin-top: 1rem;
+        }
+
+        .card-text {
+            color: var(--text-dark) !important;
+        }
+
+        .card-icon {
+            font-size: 3.5rem;
+            color: var(--highlight-color);
+            transition: transform 0.4s;
+        }
+
+        .card:hover .card-icon {
+            transform: rotateY(180deg);
+        }
+
+        /* Mission Section Image */
+        .mission-image {
+            width: 100%;
+            max-width: 450px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            border: 3px solid var(--highlight-color);
+            transition: transform 0.3s;
+        }
+
+        .mission-image:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        /* Developer Card */
+        .developer-card {
+            padding: 2rem;
+            background-color: #f8f9fa;
+        }
+
+        .developer-card img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            border: 4px solid var(--highlight-color);
+            box-shadow: 0 0 15px rgba(123, 31, 162, 0.4);
+            transition: transform 0.3s;
+        }
+
+        .developer-card img:hover {
+            transform: scale(1.1);
+        }
+
+        .developer-card h4 {
+            font-weight: 600;
+            color: var(--highlight-color);
+        }
+
+        .developer-card p {
+            margin-bottom: 0.5rem;
+            color: rgba(51, 51, 51, 0.7);
+        }
+
+        /* Contact Section */
+        .map-container {
+            height: 350px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contact-info h5 {
+            font-weight: 600;
+            color: var(--highlight-color);
+        }
+
+        .contact-info p a {
+            color: var(--highlight-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-info p a:hover {
+            color: var(--secondary-highlight);
+        }
+
+        /* Modal Styling */
+        .modal-content {
+            border-radius: 15px;
+            padding: 1rem;
+            background-color: var(--secondary-light);
+            color: var(--text-dark);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--highlight-color);
+        }
+
+        .modal-title {
+            color: var(--highlight-color);
+        }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--highlight-color);
+            background-color: #f0f2f5;
+            color: var(--text-dark);
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary-highlight);
+            box-shadow: 0 0 0 0.25rem rgba(123, 31, 162, 0.25);
+            background-color: #f0f2f5;
+            color: var(--text-dark);
+        }
+
+        .pwd_rqd ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1rem;
+            color: rgba(51, 51, 51, 0.7);
+        }
+
+        .pwd_rqd li {
+            font-size: 0.9rem;
+            padding: 0.2rem 0;
+            transition: color 0.3s;
+        }
+
+        .ok {
+            color: #38c172;
+        }
+
+        .not-ok {
+            color: #e3342f;
+        }
+
+        #pass,
         #pass2 {
             position: relative;
         }
 
+        #eye,
         #eye2 {
             position: absolute;
-            right: 20px;
-            top: 65%;
-            transform: translateY(-50%);
+            right: 15px;
+            top: 50%;
+            transform: translateY(20%);
+            cursor: pointer;
+            color: var(--highlight-color);
+            transition: color 0.3s;
         }
 
-        .ok {
-            color: darkgreen;
-            padding: 1px;
-            border-radius: 2px;
+        #eye:hover,
+        #eye2:hover {
+            color: var(--secondary-highlight);
         }
 
-        .not-ok {
-            color: red;
-            padding: 1px;
-            border-radius: 2px;
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .navbar-nav {
+                text-align: center;
+            }
+
+            .hero-section {
+                height: auto;
+                min-height: 80vh;
+            }
+
+            .section-container {
+                padding: 2rem 1rem;
+                width: 95%;
+            }
         }
     </style>
-
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg " style="background-color:rgb(15, 208, 242);">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-
-
+            <a class="navbar-brand" href="#">
+                <img src="pics/logo2.jpg" alt="EventGully Logo" width="50" height="50">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
                 aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-
             <div class="collapse navbar-collapse" id="navbarScroll">
-
-                <div><img src="pics/logo2.jpg" alt="" width="50px" height="50px" style="border-radius: 30px;"></div>
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 navbar-nav-scroll" style="margin-right: 40px;">
-                    <li class="nav-item m-1 p-2 text-center">
-                        <a class="dropdown-item" href="#services"><b>Services</b></a>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
                     </li>
-                    <li class="nav-item m-1 p-2 text-center font-weight-bold">
-                        <a class="dropdown-item" href="#Mission"><b> Mission</b></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Mission">Mission</a>
                     </li>
-                    <li class="nav-item m-1 p-2 text-center font-weight-bold">
-                        <a class="dropdown-item" href="#meet_dev"><b> Meet the Devlopers </b></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#meet_dev">Developers</a>
                     </li>
-                    <li class="nav-item m-1 p-2 text-center font-weight-bold">
-                        <a class="dropdown-item" href="#Reach_us"><b> Reach Us</b></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Reach_us">Contact Us</a>
                     </li>
                 </ul>
-                <span class="navbar-text">
-
-
-
-
-                    <div class="d-flex ms-auto me-3 gap-2">
-
-
-                        <!-- Sign in -->
-
-                        <button type="button" class="btn btn-dark" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal2">
-                            SIGN IN
-                        </button>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">SIGN IN</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form class="container my-2 w-80 rounded-3">
-
-                                            <div class="form-group p-2">
-                                                <label>Email address</label>
-                                                <input type="email" class="form-control" id="txtEmail2" name="txtEmail2"
-                                                    aria-describedby="emailHelp">
-                                                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                                            </div>
-                                            <div class="form-group p-2" id="pass2">
-                                                <label>Password</label>
-                                                <input type="password" class="form-control" id="txtPwd2" name="txtPwd2">
-                                                <i class="fa-solid fa-eye text-dark" id="eye2"></i>
-                                            </div>
-
-
-
-                                            <div class="container mt-2 mb-2">
-                                                <button type="button" class=" btn btn-dark rounded-3 width-10"
-                                                    id="btn2">Sign
-                                                    in</button>
-                                            </div>
-
-
-                                        </form>
-
-                                    </div>
-                                    <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div> -->
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                        <!-- =========================================================================================================================== -->
-
-
-
-                        <!-- sign up -->
-                        <button type="button" class="btn btn-dark" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            SIGN UP
-                        </button>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">SIGN UP</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form class="container my-2 w-80 rounded-3">
-
-                                            <div class="form-group p-2">
-                                                <label>Email address</label>
-                                                <input type="email" class="form-control" id="txtEmail" name="txtEmail"
-                                                    aria-describedby="emailHelp">
-                                                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                                            </div>
-                                            <div class="form-group p-2" id="pass">
-                                                <label>Password</label>
-                                                <input type="password" class="form-control" id="txtPwd" name="txtPwd">
-                                                <i class="fa-solid fa-eye text-dark" id="eye"></i>
-                                            </div>
-                                            <div class="pwd_rqd">
-                                                <ul>
-                                                    <li id="ll">One Lowercase Letter</li>
-                                                    <li id="cl">One Capital Letter</li>
-                                                    <li id="on">One Number</li>
-                                                    <li id="osc">One Special Character</li>
-                                                    <li id="8c">At Least 8 Characters</li>
-                                                </ul>
-                                            </div>
-                                            <!-- <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div> -->
-                                            <!-- Example split danger button -->
-                                            <div class=" p-2">
-                                                User Type:<br>
-                                                <select name="" id="comboUser" name="comboUser" class="form-control">
-                                                    <option value="none">select</option>
-                                                    <option value="Organiser">Organiser</option>
-                                                    <option value="Player">Player</option>
-
-
-                                                </select>
-                                            </div>
-
-
-                                            <div class="container mt-2 mb-2">
-                                                <button type="button" class=" btn btn-dark rounded-3 width-10"
-                                                    id="btn">Sign
-                                                    up</button>
-                                            </div>
-
-
-                                        </form>
-
-                                    </div>
-                                    <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div> -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <a href="dash_organisation.html">
-        <button type="button" class="btn btn-primary">dash_org</button>
-    </a>
-
-    <a href="dash_player.html">
-        <button type="button" class="btn btn-primary">dash_player</button>
-    </a>
-    <a href="dash_Admin.html">
-        <button type="button" class="btn btn-primary">dash_Admin</button>
-    </a> -->
-
-                    </div>
-                </span>
+                <div class="d-flex gap-2 ms-lg-3 mt-3 mt-lg-0">
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                        SIGN IN
+                    </button>
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        SIGN UP
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 
-
-
-    <!-- SCREEN ======================================================================================= -->
-    <div class="d-flex flex-column justify-content-center align-items-center"
-        style="color: black;width: 100%;height: 78vh;">
-        <h1 style="font-size: 3.5rem; font-weight: bold; color: black;">
-            Welcome to <span style="color: rgb(34, 226, 255);">EventGully</span>
-        </h1>
-        <h3> Simplifying tournament registration and event management — fast, reliable, and secure.</h3>
-        <h5> Aadhaar-based verification, live performance tracking, and seamless player onboarding — all in one
-            dashboard.</h5>
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>
+                Welcome to <span class="highlight">EventGully</span>
+            </h1>
+            <h3>Simplifying tournament registration and event management — fast, reliable, and secure.</h3>
+            <h5>Aadhaar-based verification, live performance tracking, and seamless player onboarding — all in one
+                dashboard.</h5>
+        </div>
     </div>
 
-    <!--our services============================================ -->
-    <div class="container rounded-3 p-3 " id="services"
-        style=" width: 80%; background: linear-gradient(to bottom right, #e0fdfa,rgb(34, 226, 255))">
-        <center>
-            <h2 class="row justify-content-center mt-3">Our Services</h2>
-        </center>
-        <div class="cards row d-flex justify-content-around p-4">
-            <div class="card border-0 shadow-lg bg-transparent p-3 col-12 col-sm-6 col-md-3 text-center mt-2">
-                <i class="fas fa-user-check fa-3x text-primary"></i>
-                <div class="card-body">
-                    <h5>Player Registration</h5>
-                    <p class="card-text">Seamless and secure online registration for participants with Aadhaar-based
-                        authentication and photo uploads.</p>
+    <div class="section-container" id="services">
+        <h2 class="section-title">Our Services</h2>
+        <div class="row g-4 justify-content-center">
+            <div class="col-12 col-sm-6 col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <i class="fas fa-user-check card-icon"></i>
+                        <h5 class="mt-3">Player Registration</h5>
+                        <p class="card-text">Seamless and secure online registration for participants with
+                            Aadhaar-based authentication and photo uploads.</p>
+                    </div>
                 </div>
             </div>
-
-            <div class="card border-0 shadow-lg bg-transparent p-3 col-12 col-sm-6 col-md-3 text-center mt-2">
-                <i class="fas fa-calendar-alt fa-3x text-success"></i>
-                <div class="card-body">
-                    <h5>Event Management</h5>
-                    <p class="card-text">Create and manage tournaments, games, and player data through a powerful
-                        organizer dashboard.</p>
+            <div class="col-12 col-sm-6 col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <i class="fas fa-calendar-alt card-icon"></i>
+                        <h5 class="mt-3">Event Management</h5>
+                        <p class="card-text">Create and manage tournaments, games, and player data through a
+                            powerful organizer dashboard.</p>
+                    </div>
                 </div>
             </div>
-
-            <div class="card border-0 shadow-lg bg-transparent p-3 col-12 col-sm-6 col-md-3 text-center mt-2">
-                <i class="fas fa-chart-line fa-3x text-warning"></i>
-                <div class="card-body">
-                    <h5>Analytics & Insights</h5>
-                    <p class="card-text">Real-time reports on registrations, participation, and performance to improve
-                        future events.</p>
+            <div class="col-12 col-sm-6 col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <i class="fas fa-chart-line card-icon"></i>
+                        <h5 class="mt-3">Analytics & Insights</h5>
+                        <p class="card-text">Real-time reports on registrations, participation, and
+                            performance to improve future events.</p>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 
-    <!-- ================================================================================ -->
-    <!-- our mission==================================================================== -->
-    <div class="container rounded-4 mt-5 p-4" id="Mission"
-        style="background: linear-gradient(to bottom right, #e0fdfa, rgb(34, 226, 255)); max-width: 80%;">
-        <h2 class="text-center mb-4">Our Mission</h2>
-
-        <div class="row align-items-center">
-            <!-- Left side: Icon/Image -->
-            <div class="col-md-5 text-center mb-3 mb-md-0">
-                <img src="pics/mission.jpg" alt="" style="border-radius: 40px; width: 70%;height: 90%;">
+    <div class="section-container" id="Mission">
+        <h2 class="section-title">Our Mission</h2>
+        <div class="row align-items-center g-4">
+            <div class="col-md-5 text-center">
+                <img src="pics/mission.jpg" alt="Our Mission" class="mission-image">
             </div>
-
-            <!-- Right side: Text -->
-            <div class="col-md-7 fs-5">
-                <p class="text-dark">
+            <div class="col-md-7">
+                <p class="fs-5">
                     At <strong>EventGully</strong>, our mission is to revolutionize the way sports tournaments are
                     organized, experienced, and remembered. We believe sports bring people together, ignite passion, and
                     drive excellence.
                 </p>
-                <p class="text-dark">
+                <p class="fs-5">
                     We empower organizers with tools to manage registrations, schedules, teams, and results
                     effortlessly—eliminating complexity and enhancing transparency.
                 </p>
-                <p class="text-dark">
+                <p class="fs-5">
                     Whether it's a school event or a national championship, we streamline communication, boost
                     participation, and promote fair play—creating a smarter, faster, and more engaging experience for
                     all.
@@ -559,68 +615,122 @@
         </div>
     </div>
 
-
-
-
-    <!-- =====meet developers======================== -->
-
-    <div class="container rounded-3 mt-3" id="meet_dev"
-        style=" width: 80%; background: linear-gradient(to bottom right, #e0fdfa,rgb(34, 226, 255));">
-        <center>
-            <h2 class="row justify-content-center mt-3 p-3">Meet The Developers</h2>
-        </center>
-        <div class="cards row d-flex justify-content-around mt-3 m-1 p-4 mt-2">
-
-            <div class="bg-light shadow-lg p-3 col-12 col-sm-6 col-md-5 text-center rounded-4 mt-2">
-                <h5 class="fw-bold">Under the Guidance Of:</h5><br>
-                <img src="pics/banglorie_sir.jpg" alt="" style="width: 200px; height: 200px; border-radius: 100%;">
-
-                <h4 class="fw-bold text-dark">Rajesh K. Bansal</h4>
-                <p class="text-muted mb-1">(SCJP - Sun Certified Java Programmer)</p>
-
+    <div class="section-container" id="meet_dev">
+        <h2 class="section-title">Meet The Developers</h2>
+        <div class="row g-4 justify-content-center">
+            <div class="col-12 col-md-5">
+                <div class="card developer-card h-100 text-center">
+                    <h5 class="fw-bold text-muted">Under the Guidance Of:</h5>
+                    <img src="pics/banglorie_sir.jpg" alt="Rajesh K. Bansal" class="mx-auto mt-3 mb-3">
+                    <h4 class="fw-bold">Rajesh K. Bansal</h4>
+                    <p class="text-muted">(SCJP - Sun Certified Java Programmer)</p>
+                </div>
             </div>
-
-            <div class="bg-light shadow-lg  p-3 col-12 col-sm-6 col-md-5 text-center rounded-4 mt-2">
-                <h5 class="fw-bold">Developer:</h5>
-                <img src="pics/me.jpg" alt="" style="width: 170px; height: 200px; border-radius: 20px;">
-
-                <h4 class="fw-bold text-dark">Aditya Jindal</h4>
-                <p class="mb-1"><strong>The LNM Institute of Information Technology</strong></p>
-                <p class="text-muted">Jaipur, Rajasthan</p>
-
+            <div class="col-12 col-md-5">
+                <div class="card developer-card h-100 text-center">
+                    <h5 class="fw-bold text-muted">Developer:</h5>
+                    <img src="pics/me.jpg" alt="Aditya Jindal" class="mx-auto mt-3 mb-3">
+                    <h4 class="fw-bold">Aditya Jindal</h4>
+                    <p><strong>The LNM Institute of Information Technology</strong></p>
+                    <p class="text-muted">Jaipur, Rajasthan</p>
+                </div>
             </div>
         </div>
     </div>
 
-    </div>
-    <!-- ===================== -->
-
-    <div class="container rounded-3 mt-3" id="Reach_us"
-        style=" width: 80%; background: linear-gradient(to bottom right, #e0fdfa, rgb(34, 226, 255));">
-        <center>
-            <h2 class="row justify-content-center mt-3">Reach Us</h2>
-        </center>
-        <div class="cards row d-flex justify-content-around m-1 p-4">
-
-            <div class="bg-light shadow-lg p-3 col-12 col-sm-6 col-md-5 text-center rounded-4 mt-2">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d430.9849217000747!2d74.95199013784224!3d30.211990099391503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391732a4f07278a9%3A0x4a0d6293513f98ce!2sBanglore%20Computer%20Education!5e0!3m2!1sen!2sin!4v1753072442435!5m2!1sen!2sin"
-                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="section-container" id="Reach_us">
+        <h2 class="section-title">Reach Us</h2>
+        <div class="row g-4 justify-content-center">
+            <div class="col-12 col-md-6">
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d430.9849217000747!2d74.95199013784224!3d30.211990099391503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391732a4f07278a9%3A0x4a0d6293513f98ce!2sBanglore%20Computer%20Education!5e0!3m2!1sen!2sin!4v1753072442435!5m2!1sen!2sin"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
             </div>
-
-            <div class="bg-light shadow-lg  p-3 col-12 col-sm-6 col-md-5 text-center rounded-4 mt-2">
-                <h5><b>Got questions or suggestions? We're here to help!</b></h5>
-                <br>
-                <p><strong>Email:</strong> <a href="mailto:adityajindal704@gmail.com">adityajindal704@gmail.com</a></p>
-                <p><strong>Contact:</strong> +91 90164 20001</p>
+            <div class="col-12 col-md-6">
+                <div class="card h-100 contact-info p-4">
+                    <h5 class="fw-bold mb-4">Got questions or suggestions? We're here to help!</h5>
+                    <p class="fs-5"><strong>Email:</strong> <a
+                            href="mailto:adityajindal704@gmail.com">adityajindal704@gmail.com</a></p>
+                    <p class="fs-5"><strong>Contact:</strong> +91 90164 20001</p>
+                </div>
             </div>
         </div>
     </div>
 
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">SIGN IN</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="container my-2">
+                        <div class="form-group p-2">
+                            <label>Email address</label>
+                            <input type="email" class="form-control" id="txtEmail2" name="txtEmail2"
+                                aria-describedby="emailHelp">
+                        </div>
+                        <div class="form-group p-2" id="pass2">
+                            <label>Password</label>
+                            <input type="password" class="form-control" id="txtPwd2" name="txtPwd2">
+                            <i class="fa-solid fa-eye" id="eye2"></i>
+                        </div>
+                        <div class="container mt-4 mb-2 text-center">
+                            <button type="button" class="btn btn-dark" id="btn2">Sign in</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
-
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">SIGN UP</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="container my-2">
+                        <div class="form-group p-2">
+                            <label>Email address</label>
+                            <input type="email" class="form-control" id="txtEmail" name="txtEmail"
+                                aria-describedby="emailHelp">
+                        </div>
+                        <div class="form-group p-2" id="pass">
+                            <label>Password</label>
+                            <input type="password" class="form-control" id="txtPwd" name="txtPwd">
+                            <i class="fa-solid fa-eye" id="eye"></i>
+                        </div>
+                        <div class="pwd_rqd mt-3">
+                            <ul class="list-unstyled">
+                                <li id="ll">One Lowercase Letter</li>
+                                <li id="cl">One Capital Letter</li>
+                                <li id="on">One Number</li>
+                                <li id="osc">One Special Character</li>
+                                <li id="8c">At Least 8 Characters</li>
+                            </ul>
+                        </div>
+                        <div class="p-2">
+                            User Type:<br>
+                            <select id="comboUser" name="comboUser" class="form-control mt-2">
+                                <option value="none">select</option>
+                                <option value="Organiser">Organiser</option>
+                                <option value="Player">Player</option>
+                            </select>
+                        </div>
+                        <div class="container mt-4 mb-2 text-center">
+                            <button type="button" class="btn btn-dark" id="btn">Sign up</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 
